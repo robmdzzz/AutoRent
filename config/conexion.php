@@ -4,7 +4,7 @@
 $host = '127.0.0.1'; // O 'localhost'
 $dbname = 'autorent_db';
 $user = 'root';
-$password = ''; // En Laragon por defecto está vacía
+$password = ''; // Predeterminado en Laragon
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$dbname;charset=$charset";
