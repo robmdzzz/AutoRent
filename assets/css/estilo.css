@@ -1,0 +1,29 @@
+/* Básico */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+body { background-color: #f8fafc; color: #1e293b; }
+
+/* Navbar */
+.navbar {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 40px; background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+}
+.logo a { font-size: 24px; font-weight: bold; color: #1e293b; text-decoration: none; }
+.nav-links { display: flex; gap: 30px; }
+.nav-links a { text-decoration: none; color: #64748b; font-weight: 500; }
+.nav-links a:hover { color: #1e3a8a; }
+.nav-auth { display: flex; gap: 15px; align-items: center; }
+
+/* Botones */
+.btn-primary { background-color: #1e3a8a; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-size: 14px; }
+.btn-primary:hover { background-color: #1e40af; }
+.btn-outline { border: 1px solid #cbd5e1; color: #1e293b; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-size: 14px; }
+.btn-outline:hover { background-color: #f1f5f9; }
+
+/* Footer */
+.footer { background-color: #ffffff; padding: 40px; border-top: 1px solid #e2e8f0; margin-top: 50px; }
+.footer-content { display: flex; justify-content: space-between; max-width: 1200px; margin: 0 auto; }
+.footer-col { display: flex; flex-direction: column; gap: 10px; }
+.footer-col h3 { font-size: 16px; margin-bottom: 5px; }
+.footer-col a { color: #64748b; text-decoration: none; font-size: 14px; }
+.footer-bottom { text-align: center; margin-top: 40px; color: #94a3b8; font-size: 12px; }
