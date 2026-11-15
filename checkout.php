@@ -56,11 +56,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ':total' => $total
         ]);
 
+        $nuevo_id = $pdo->lastInsertId();
+
+        if (!$nuevo_id || $nuevo_id == 0) {
+            die("Error: La reserva se guardó, pero el ID es 0. Revisa la base de datos.");
+        }
+
         // Cambiar el estado del auto a 'rentado'
         $pdo->query("UPDATE AUTOMOVILES SET estado = 'rentado' WHERE id_auto = $id_auto");
 
-        // Redirigir al pop-up de Reserva Exitosa
-        header("Location: reserva_exitosa.php?id=" . $pdo->lastInsertId());
+        // Redirigir al pop-up
+        header("Location: /reserva_exitosa.php?id=" . $nuevo_id);
         exit;
 
     } catch (PDOException $e) {
