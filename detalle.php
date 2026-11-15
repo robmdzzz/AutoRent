@@ -162,7 +162,7 @@ if (!$auto) {
         calcularPrecio();
     });
 
-    // 3. Calcular el precio total
+        // 3. Calcular el precio total
     function calcularPrecio() {
         if (inputInicio.value && inputFin.value) {
             const fecha1 = new Date(inputInicio.value + 'T00:00:00');
@@ -170,7 +170,10 @@ if (!$auto) {
             
             // Calcular diferencia en días
             const diferenciaTiempo = fecha2 - fecha1;
-            const dias = Math.round(diferenciaTiempo / (1000 * 60 * 60 * 24));
+            let dias = Math.round(diferenciaTiempo / (1000 * 60 * 60 * 24));
+            
+            // SUMAMOS 1 DÍA porque se cuenta el día de inicio
+            dias = dias + 1; 
 
             if (dias > 0) {
                 textoDias.textContent = dias + ' días';

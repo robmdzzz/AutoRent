@@ -1,21 +1,22 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require 'config/conexion.php';
 
 // Si el usuario ya está logueado, redirigirlo
 if (isset($_SESSION['id_usuario'])) {
-    header("Location: index.php");
+    header("Location: /index.php");
     exit;
 }
 
 $mensaje = '';
-$accion = $_POST['accion'] ?? '';
 
 // Lógica del formulario
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $accion = $_POST['accion'];
+    $accion = $_POST['accion'] ?? '';
 
-        if ($accion == 'registro') {
+    if ($accion == 'registro') {
         // Lógica de Registro
         $nombre = trim($_POST['nombre']);
         $apellidos = trim($_POST['apellidos']);
@@ -48,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $mensaje = "<div class='alert error'>Error al registrar: El correo ya existe o hubo un problema.</div>";
             }
         }
-    }
     } elseif ($accion == 'login') {
         // Lógica de Inicio de Sesión
         $correo = trim($_POST['correo']);
@@ -67,16 +67,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             // Redirigir según el rol
             if ($usuario['rol'] == 'administrador') {
-                header("Location: admin/dashboard.php"); // Placeholder
+                header("Location: /admin/dashboard.php"); 
             } else {
-                header("Location: index.php");
+                header("Location: /index.php");
             }
             exit;
         } else {
             $mensaje = "<div class='alert error'>Correo o contraseña incorrectos.</div>";
         }
     }
-
+} // <--- Cierra if principal del POST
 ?>
 
 <!DOCTYPE html>

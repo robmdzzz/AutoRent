@@ -6,7 +6,7 @@
     
     <!-- Buscador placeholder -->
     <div style="background: white; padding: 20px; display: inline-block; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-        <a href="/autorent/catalogo.php" class="btn-primary" style="padding: 12px 24px; font-size: 16px;">Buscar Disponibilidad</a>
+        <a href="/catalogo.php" class="btn-primary" style="padding: 12px 24px; font-size: 16px;">Buscar Disponibilidad</a>
     </div>
 </section>
 
