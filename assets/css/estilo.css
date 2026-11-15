@@ -75,3 +75,55 @@ body { background-color: #f8fafc; color: #1e293b; }
 .auto-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; }
 .precio { font-size: 20px; font-weight: bold; color: #1e293b; }
 .precio span { font-size: 14px; font-weight: normal; color: #64748b; }
+
+/* ESTILOS DEL DETALLE DEL AUTO  */
+.detalle-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    gap: 40px;
+}
+
+/* Galería */
+.detalle-galeria { width: 55%; }
+.foto-principal {
+    width: 100%; height: 400px; background-color: #f1f5f9; border-radius: 8px; overflow: hidden; margin-bottom: 15px;
+}
+.foto-principal img { width: 100%; height: 100%; object-fit: cover; }
+.miniaturas { display: flex; gap: 15px; }
+.miniatura {
+    width: 30%; height: 100px; background-color: #f1f5f9; border-radius: 6px;
+}
+
+/* Info */
+.detalle-info { width: 45%; }
+.breadcrumb { font-size: 12px; color: #64748b; margin-bottom: 10px; }
+.detalle-info h1 { font-size: 32px; color: #1e293b; margin-bottom: 10px; }
+.detalle-caracteristicas { color: #64748b; margin-bottom: 20px; }
+.precio-grande { font-size: 28px; font-weight: bold; color: #1e293b; margin-bottom: 20px; }
+.precio-grande span { font-size: 16px; font-weight: normal; color: #64748b; }
+
+/* Tarjeta de Reserva */
+.tarjeta-reserva {
+    background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+.tarjeta-reserva h3 { font-size: 14px; color: #64748b; margin-bottom: 15px; }
+.fechas-group { display: flex; gap: 15px; margin-bottom: 20px; }
+.fechas-group div { flex: 1; }
+.fechas-group label { display: block; font-size: 12px; color: #475569; margin-bottom: 5px; }
+.fechas-group input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; }
+
+.resumen-precio {
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid #e2e8f0; padding-top: 15px; font-size: 14px; color: #475569;
+}
+.total-estimado { font-size: 20px; font-weight: bold; color: #1e293b; }
+
+/* Pestañas */
+.detalle-tabs { max-width: 1200px; margin: 0 auto 60px auto; padding: 0 20px; }
+.tabs-header { display: flex; gap: 30px; border-bottom: 1px solid #e2e8f0; margin-bottom: 20px; }
+.tabs-header span { padding-bottom: 10px; cursor: pointer; color: #64748b; font-weight: 500; }
+.tabs-header .tab-active { color: #1e3a8a; border-bottom: 2px solid #1e3a8a; }
+.tab-content { color: #475569; line-height: 1.6; }
