@@ -18,7 +18,7 @@ $stmt->execute([':id' => $id_reservacion, ':id_usuario' => $_SESSION['id_usuario
 $reserva = $stmt->fetch();
 
 if (!$reserva) {
-    die("Error de depuración: No se encontró la reserva con ID: " . $id_reservacion . " para el usuario con ID: " . $_SESSION['id_usuario']);
+    header("Location: /index.php");
     exit;
 }
 ?>
@@ -27,35 +27,121 @@ if (!$reserva) {
 <head>
     <meta charset="UTF-8">
     <title>Reserva Exitosa - AutoRent</title>
-    <link rel="stylesheet" href="/assets/css/styles.css">
     <style>
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;
+        /* Forzamos la fuente Arial y el fondo gris claro en toda la página */
+        body {
+            font-family: Arial, sans-serif !important; 
+            background-color: #f8fafc !important; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0;
         }
-        .modal-content {
-            background: white; padding: 40px; border-radius: 8px; text-align: center; max-width: 500px; width: 90%;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        
+        .modal-card {
+            background: white; 
+            padding: 50px 40px; 
+            border-radius: 12px; 
+            text-align: center; 
+            max-width: 450px; 
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
         }
-        .check-icon { font-size: 50px; color: #10b981; margin-bottom: 20px; }
-        .modal-content h2 { color: #1e293b; margin-bottom: 10px; }
-        .modal-content p { color: #64748b; margin-bottom: 20px; }
-        .folio { font-size: 18px; font-weight: bold; color: #1e3a8a; margin-bottom: 30px; display: block; }
-        .btn-group { display: flex; flex-direction: column; gap: 10px; }
+
+        .check-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #d1fae5; 
+            color: #10b981; 
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            margin: 0 auto 20px auto;
+            font-family: Arial, sans-serif;
+        }
+
+        .modal-card h2 {
+            color: #1e293b !important;
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-family: Arial, sans-serif !important;
+        }
+
+        .modal-card p {
+            color: #64748b !important;
+            font-size: 15px;
+            margin-bottom: 25px;
+            font-family: Arial, sans-serif !important;
+        }
+
+        .folio-box {
+            background-color: #f1f5f9;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #1e3a8a !important;
+            margin-bottom: 30px;
+            display: block;
+            border: 1px dashed #cbd5e1;
+            font-family: Arial, sans-serif !important;
+        }
+
+        /* Forzamos a que los enlaces se vean como botones sólidos */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn-group a {
+            text-decoration: none !important;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 14px;
+            font-size: 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-family: Arial, sans-serif !important;
+            transition: background 0.2s;
+        }
+
+        /* Botón Azul */
+        .btn-azul {
+            background-color: #1e3a8a !important;
+            color: #ffffff !important;
+            border: 1px solid #1e3a8a !important;
+        }
+        .btn-azul:hover { background-color: #1e40af !important; }
+
+        /* Botón Blanco con borde */
+        .btn-blanco {
+            background-color: #ffffff !important;
+            color: #1e293b !important;
+            border: 1px solid #cbd5e1 !important;
+        }
+        .btn-blanco:hover { background-color: #f8fafc !important; }
     </style>
 </head>
 <body>
-    <div class="modal-overlay">
-        <div class="modal-content">
-            <div class="check-icon">✔️</div>
-            <h2>¡Tu reserva ha sido confirmada!</h2>
-            <p>Hemos enviado los detalles a tu correo.</p>
-            <span class="folio">Folio: #RES-<?php echo str_pad($reserva['id_reservacion'], 4, "0", STR_PAD_LEFT); ?></span>
-            
-            <div class="btn-group">
-                <a href="/mis_reservaciones.php" class="btn-primary" style="text-decoration: none; padding: 12px;">Ir a Mis Reservaciones</a>
-                <a href="/index.php" class="btn-outline" style="text-decoration: none; padding: 12px;">Volver al Inicio</a>
-            </div>
+    <div class="modal-card">
+        <div class="check-icon">✔</div>
+        <h2>¡Tu reserva ha sido confirmada!</h2>
+        <p>Hemos enviado los detalles de tu renta a tu correo electrónico.</p>
+        
+        <span class="folio-box">
+            Folio: #RES-<?php echo str_pad($reserva['id_reservacion'], 4, "0", STR_PAD_LEFT); ?>
+        </span>
+        
+        <div class="btn-group">
+            <!-- Usamos las nuevas clases que forzamos arriba -->
+            <a href="/mis_reservaciones.php" class="btn-azul">Ir a Mis Reservaciones</a>
+            <a href="/index.php" class="btn-blanco">Volver al Inicio</a>
         </div>
     </div>
 </body>

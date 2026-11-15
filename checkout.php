@@ -92,19 +92,21 @@ require 'includes/header.php';
                     <input type="text" placeholder="Nombre Apellido" required>
                 </div>
                 <div class="form-group">
-                    <label>Número de tarjeta</label>
-                    <input type="text" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                <label>Número de tarjeta</label>
+                <!-- Agregamos id="card_number" -->
+                <input type="text" id="card_number" placeholder="0000 0000 0000 0000" maxlength="19" required>
+            </div>
+            <div class="fechas-group">
+                <div class="form-group">
+                    <label>Fecha de expiración</label>
+                    <!-- Agregamos id="exp_date" -->
+                    <input type="text" id="exp_date" placeholder="MM/AA" maxlength="5" required>
                 </div>
-                <div class="fechas-group">
-                    <div class="form-group">
-                        <label>Fecha de expiración</label>
-                        <input type="text" placeholder="MM/AA" maxlength="5" required>
-                    </div>
-                    <div class="form-group">
-                        <label>CVV</label>
-                        <input type="text" placeholder="123" maxlength="4" required>
-                    </div>
+                <div class="form-group">
+                    <label>CVV</label>
+                    <input type="text" placeholder="123" maxlength="4" required>
                 </div>
+            </div>
                 <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
                     <input type="checkbox" style="width: auto;">
                     <label style="margin: 0;">Guardar tarjeta para futuras reservas</label>
@@ -147,5 +149,35 @@ require 'includes/header.php';
         </div>
     </div>
 </div>
+
+<script>
+    // 1. Formatear el número de tarjeta (Agrega espacios cada 4 dígitos)
+    const inputTarjeta = document.getElementById('card_number');
+    inputTarjeta.addEventListener('input', function(e) {
+        // Eliminar todo lo que no sea un número
+        let valor = this.value.replace(/\D/g, '');
+        
+        // Agregar un espacio cada 4 dígitos
+        valor = valor.replace(/(\d{4})(?=\d)/g, '$1 ');
+        
+        // Asignar el valor formateado al input
+        this.value = valor;
+    });
+
+    // 2. Formatear la fecha de expiración (Agrega la diagonal automáticamente)
+    const inputFecha = document.getElementById('exp_date');
+    inputFecha.addEventListener('input', function(e) {
+        // Eliminar todo lo que no sea un número
+        let valor = this.value.replace(/\D/g, '');
+        
+        // Si hay más de 2 dígitos, colocar la diagonal
+        if (valor.length > 2) {
+            valor = valor.substring(0, 2) + '/' + valor.substring(2, 4);
+        }
+        
+        // Asignar el valor formateado al input
+        this.value = valor;
+    });
+</script>
 
 <?php require 'includes/footer.php'; ?>
