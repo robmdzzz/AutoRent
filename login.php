@@ -59,19 +59,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->execute([':correo' => $correo]);
         $usuario = $stmt->fetch();
 
-        if ($usuario && password_verify($contrasena, $usuario['contrasena'])) {
-            // Credenciales correctas, crear sesión
-            $_SESSION['id_usuario'] = $usuario['id_usuario'];
-            $_SESSION['nombre'] = $usuario['nombre'];
-            $_SESSION['rol'] = $usuario['rol'];
+                if ($usuario && password_verify($contrasena, $usuario['contrasena'])) {
             
-            // Redirigir según el rol
-            if ($usuario['rol'] == 'administrador') {
-                header("Location: /admin/dashboard.php"); 
+            // Revisamos si el usuario está suspendido
+            if ($usuario['estado'] == 'suspendido') {
+                $mensaje = "<div class='alert error'>Tu cuenta ha sido suspendida. Por favor, contacta al administrador.</div>";
             } else {
-                header("Location: /index.php");
+                // Credenciales correctas y cuenta activa, crear sesión
+                $_SESSION['id_usuario'] = $usuario['id_usuario'];
+                $_SESSION['nombre'] = $usuario['nombre'];
+                $_SESSION['rol'] = $usuario['rol'];
+                
+                // Redirigir según el rol
+                if ($usuario['rol'] == 'administrador') {
+                    header("Location: /admin/dashboard.php"); 
+                } else {
+                    header("Location: /index.php");
+                }
+                exit;
             }
-            exit;
         } else {
             $mensaje = "<div class='alert error'>Correo o contraseña incorrectos.</div>";
         }

@@ -346,3 +346,14 @@ body { background-color: #f8fafc; color: #1e293b; }
     border-color: #1e3a8a;
     box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
 }
+
+
+/* --- ESTILOS PARA EL SELECT DE RESERVAS --- */
+.admin-table select {
+    font-family: Arial, sans-serif;
+    color: #475569;
+}
+.admin-table select:focus {
+    outline: none;
+    border-color: #1e3a8a;
+}
