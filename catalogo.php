@@ -7,7 +7,7 @@ require 'includes/header.php';
 $sql = "SELECT a.*, c.nombre as categoria_nombre 
         FROM AUTOMOVILES a 
         INNER JOIN CATEGORIAS c ON a.id_categoria = c.id_categoria 
-        WHERE a.estado = 'disponible'";
+        WHERE a.estado <> 'mantenimiento'";
 
 $params = []; // Array para guardar los parámetros de la consulta preparada
 
