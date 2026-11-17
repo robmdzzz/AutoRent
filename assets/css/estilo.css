@@ -455,3 +455,137 @@ body { background-color: #f8fafc; color: #1e293b; }
     margin-bottom: 20px;
     line-height: 1.5;
 }
+
+
+/* --- ESTILOS DE ACERCA DE NOSOTROS --- */
+.acerca-hero {
+    text-align: center;
+    padding: 60px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.acerca-intro {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.intro-img {
+    flex: 1;
+    background-color: #e2e8f0;
+}
+
+.intro-texto {
+    flex: 1;
+}
+
+.intro-texto h2 {
+    font-size: 24px;
+    color: #1e293b;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.mvv-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.mvv-card {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.mvv-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.mvv-card h3 {
+    color: #1e293b;
+    margin-bottom: 10px;
+}
+
+.mvv-card p {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* --- ESTILOS DE CONTACTO --- */
+.contacto-container {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.contacto-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 30px;
+}
+
+.contacto-form-card, .contacto-info-card {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.contacto-form-card h2, .contacto-info-card h2 {
+    color: #1e293b;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.contacto-form-card label {
+    display: block;
+    font-size: 14px;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.contacto-form-card input, .contacto-form-card textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+.info-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    align-items: flex-start;
+}
+
+.info-icon {
+    font-size: 20px;
+    background: #f1f5f9;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.info-item h4 {
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 5px;
+}
+
+.info-item p {
+    color: #1e293b;
+    font-weight: 500;
+    font-size: 14px;
+}
