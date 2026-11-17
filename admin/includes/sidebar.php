@@ -27,6 +27,9 @@ $pagina_actual = basename($_SERVER['PHP_SELF']);
         <a href="/admin/usuarios.php" class="<?php echo ($pagina_actual == 'usuarios.php') ? 'active' : ''; ?>">
             Usuarios
         </a>
+        <a href="/admin/promociones.php" class="<?php echo ($pagina_actual == 'promociones.php' || $pagina_actual == 'promo_form.php') ? 'active' : ''; ?>">
+            Promociones
+        </a>
     </nav>
 
     <div class="admin-logout">

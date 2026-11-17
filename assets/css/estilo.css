@@ -589,3 +589,72 @@ body { background-color: #f8fafc; color: #1e293b; }
     font-weight: 500;
     font-size: 14px;
 }
+
+/* --- ESTILOS DE PROMOCIONES (CLIENTE) --- */
+.promociones-container {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.promos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.promo-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.promo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+}
+
+.promo-header {
+    background-color: #f8fafc;
+    padding: 30px;
+    text-align: center;
+    border-bottom: 1px dashed #cbd5e1;
+}
+
+.promo-badge {
+    background-color: #1e3a8a;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 50px;
+    display: inline-block;
+}
+
+.promo-body {
+    padding: 25px;
+}
+
+.promo-body h3 {
+    color: #1e293b;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.promo-body p {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    min-height: 65px; /* Para que todas las tarjetas midan lo mismo */
+}
+
+.promo-fecha {
+    font-size: 13px;
+    color: #475569;
+    background: #f1f5f9;
+    padding: 10px;
+    border-radius: 6px;
+}

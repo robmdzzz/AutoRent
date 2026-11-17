@@ -18,11 +18,10 @@ $id_auto = $_GET['id_auto'];
 $fecha_inicio = $_GET['fecha_inicio'];
 $fecha_fin = $_GET['fecha_fin'];
 
-// Recalcular días y total en el servidor (Seguridad)
+// Recalcular días en el servidor
 $fecha1 = new DateTime($fecha_inicio);
 $fecha2 = new DateTime($fecha_fin);
-$dias = $fecha1->diff($fecha2)->days;
-$dias = $dias + 1; // Sumamos 1 día para contar el día de inicio en la renta
+$dias = $fecha1->diff($fecha2)->days + 1; 
 
 // Consultar el auto
 $sql = "SELECT * FROM AUTOMOVILES WHERE id_auto = :id";
@@ -36,18 +35,41 @@ if (!$auto || $dias <= 0) {
 }
 
 $subtotal = $dias * $auto['precio_dia'];
-$descuento = 0; // Luego podemos aplicar promociones
+
+// --- NUEVA LÓGICA DE PROMOCIONES ---
+// Buscamos la promoción activa con el mayor descuento
+$sql_promo = "SELECT id_promocion, nombre, porcentaje_descuento 
+              FROM PROMOCIONES 
+              WHERE estado = 'activa' 
+              AND fecha_inicio <= CURDATE() 
+              AND fecha_fin >= CURDATE() 
+              ORDER BY porcentaje_descuento DESC LIMIT 1";
+$stmt_promo = $pdo->query($sql_promo);
+$promocion_aplicada = $stmt_promo->fetch();
+
+$descuento = 0;
+$id_promocion_guardar = null;
+$nombre_promocion = "Ninguna";
+
+if ($promocion_aplicada) {
+    $descuento = $subtotal * ($promocion_aplicada['porcentaje_descuento'] / 100);
+    $id_promocion_guardar = $promocion_aplicada['id_promocion'];
+    $nombre_promocion = $promocion_aplicada['nombre'] . " (" . $promocion_aplicada['porcentaje_descuento'] . "%)";
+}
+
 $total = $subtotal - $descuento;
 
 // Lógica cuando el usuario hace clic en "Confirmar Reserva"
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     try {
-        $sqlInsert = "INSERT INTO RESERVACIONES (id_usuario, id_auto, fecha_inicio, fecha_final, numero_dias, subtotal, descuento, total, estado) 
-                      VALUES (:id_usuario, :id_auto, :fecha_inicio, :fecha_final, :numero_dias, :subtotal, :descuento, :total, 'confirmada')";
+        // Incluimos id_promocion en el INSERT
+        $sqlInsert = "INSERT INTO RESERVACIONES (id_usuario, id_auto, id_promocion, fecha_inicio, fecha_final, numero_dias, subtotal, descuento, total, estado) 
+                      VALUES (:id_usuario, :id_auto, :id_promocion, :fecha_inicio, :fecha_final, :numero_dias, :subtotal, :descuento, :total, 'confirmada')";
         $stmtInsert = $pdo->prepare($sqlInsert);
         $stmtInsert->execute([
             ':id_usuario' => $_SESSION['id_usuario'],
             ':id_auto' => $id_auto,
+            ':id_promocion' => $id_promocion_guardar,
             ':fecha_inicio' => $fecha_inicio,
             ':fecha_final' => $fecha_fin,
             ':numero_dias' => $dias,
@@ -83,7 +105,7 @@ require 'includes/header.php';
     <?php if(isset($error)) echo "<div class='alert error'>$error</div>"; ?>
 
     <div class="checkout-grid">
-        <!-- Columna Izquierda: Formulario de Pago -->
+        <!-- Formulario de Pago -->
         <div class="checkout-form">
             <h2>Información de pago</h2>
             <form method="POST">
@@ -92,28 +114,26 @@ require 'includes/header.php';
                     <input type="text" placeholder="Nombre Apellido" required>
                 </div>
                 <div class="form-group">
-                <label>Número de tarjeta</label>
-                <!-- Agregamos id="card_number" -->
-                <input type="text" id="card_number" placeholder="0000 0000 0000 0000" maxlength="19" required>
-            </div>
-            <div class="fechas-group">
-                <div class="form-group">
-                    <label>Fecha de expiración</label>
-                    <!-- Agregamos id="exp_date" -->
-                    <input type="text" id="exp_date" placeholder="MM/AA" maxlength="5" required>
+                    <label>Número de tarjeta</label>
+                    <input type="text" id="card_number" placeholder="0000 0000 0000 0000" maxlength="19" required>
                 </div>
-                <div class="form-group">
-                    <label>CVV</label>
-                    <input type="text" placeholder="123" maxlength="4" required>
+                <div class="fechas-group">
+                    <div class="form-group">
+                        <label>Fecha de expiración</label>
+                        <input type="text" id="exp_date" placeholder="MM/AA" maxlength="5" required>
+                    </div>
+                    <div class="form-group">
+                        <label>CVV</label>
+                        <input type="text" placeholder="123" maxlength="4" required>
+                    </div>
                 </div>
-            </div>
                 <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
                     <input type="checkbox" style="width: auto;">
                     <label style="margin: 0;">Guardar tarjeta para futuras reservas</label>
                 </div>
         </div>
 
-        <!-- Columna Derecha: Resumen de la Reserva -->
+        <!-- Resumen de la Reserva -->
         <div class="checkout-resumen">
             <h2>Resumen de la reserva</h2>
             
@@ -138,46 +158,39 @@ require 'includes/header.php';
 
             <div class="resumen-totales">
                 <div class="linea"><span>Subtotal (<?php echo $dias; ?> días)</span> <span>$<?php echo number_format($subtotal, 2); ?></span></div>
-                <div class="linea"><span>Descuento por promoción</span> <span>-$<?php echo number_format($descuento, 2); ?></span></div>
+                <!-- Mostramos el nombre de la promoción aplicada -->
+                <div class="linea"><span>Descuento (<?php echo $nombre_promocion; ?>)</span> <span style="color: #10b981;">-$<?php echo number_format($descuento, 2); ?></span></div>
                 <div class="linea total"><span>Total a pagar</span> <span>$<?php echo number_format($total, 2); ?></span></div>
             </div>
 
             <button type="submit" class="btn-primary" style="width: 100%; padding: 15px; font-size: 16px; margin-top: 20px;">
                 Confirmar Reserva
             </button>
-            </form> <!-- Cerramos el formulario aquí para que el botón envíe los datos -->
+            </form>
         </div>
     </div>
 </div>
 
+<!-- Script para formatear tarjeta y fecha -->
 <script>
     // 1. Formatear el número de tarjeta (Agrega espacios cada 4 dígitos)
     const inputTarjeta = document.getElementById('card_number');
     inputTarjeta.addEventListener('input', function(e) {
-        // Eliminar todo lo que no sea un número
         let valor = this.value.replace(/\D/g, '');
-        
-        // Agregar un espacio cada 4 dígitos
         valor = valor.replace(/(\d{4})(?=\d)/g, '$1 ');
-        
-        // Asignar el valor formateado al input
         this.value = valor;
     });
 
     // 2. Formatear la fecha de expiración (Agrega la diagonal automáticamente)
     const inputFecha = document.getElementById('exp_date');
     inputFecha.addEventListener('input', function(e) {
-        // Eliminar todo lo que no sea un número
         let valor = this.value.replace(/\D/g, '');
-        
-        // Si hay más de 2 dígitos, colocar la diagonal
         if (valor.length > 2) {
             valor = valor.substring(0, 2) + '/' + valor.substring(2, 4);
         }
-        
-        // Asignar el valor formateado al input
         this.value = valor;
     });
 </script>
 
+<?php require 'includes/footer.php'; ?>
 <?php require 'includes/footer.php'; ?>
