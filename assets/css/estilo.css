@@ -903,3 +903,88 @@ body { background-color: #f8fafc; color: #1e293b; }
     border-color: #1e3a8a;
     box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
 }
+
+/* =====================================================================
+   Estilos para filtros, paginación y acciones de la pantalla P13
+   (Gestión de Reservaciones)
+   ===================================================================== */
+
+/* Mensajes */
+.alerta { padding: 15px; border-radius: 6px; margin-bottom: 20px; font-size: 14px; }
+.alerta-exito { background: #d1fae5; color: #065f46; }
+.alerta-error { background: #fee2e2; color: #991b1b; }
+
+/* Barra de filtros */
+.filtros-barra {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+.filtro-buscar {
+    flex: 1;
+    min-width: 220px;
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+    background: white;
+}
+.filtro-campo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: white;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #64748b;
+}
+.filtro-campo select,
+.filtro-campo input[type="date"] {
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    color: #1e293b;
+    font-weight: 600;
+    outline: none;
+}
+.filtros-barra .btn-primary { border: none; cursor: pointer; padding: 10px 20px; }
+.filtros-barra .btn-outline { padding: 10px 20px; }
+.filtro-nota { font-size: 12px; color: #94a3b8; margin-bottom: 20px; }
+.filtro-buscar:focus { outline: none; border-color: #1e3a8a; box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1); }
+
+/* Acciones por fila */
+.acciones-reserva { display: flex; gap: 8px; align-items: center; }
+.form-estado { display: flex; gap: 5px; align-items: center; }
+.form-estado select { padding: 5px; border-radius: 4px; border: 1px solid #cbd5e1; font-size: 13px; }
+.btn-chico { padding: 5px 10px; font-size: 13px; border-radius: 4px; cursor: pointer; }
+.form-estado .btn-primary { border: none; }
+button.btn-accion:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Paginación */
+.paginacion-barra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #64748b;
+}
+.paginacion { display: flex; gap: 6px; align-items: center; }
+.paginacion a {
+    min-width: 34px;
+    padding: 7px 10px;
+    text-align: center;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background: white;
+    color: #1e293b;
+    text-decoration: none;
+    font-size: 14px;
+}
+.paginacion a:hover { background: #f1f5f9; }
+.paginacion a.activa { background: #1e3a8a; color: white; border-color: #1e3a8a; }
+.paginacion .puntos { color: #94a3b8; padding: 0 4px; }
