@@ -9,8 +9,11 @@ if (!isset($_SESSION['id_usuario']) || $_SESSION['rol'] != 'administrador') {
 $pagina_actual = basename($_SERVER['PHP_SELF']);
 ?>
 <aside class="admin-sidebar">
-    <div class="admin-logo">
-        <h2>AutoRent</h2>
+        <div class="admin-logo">
+        <!-- Enlace al index público -->
+        <a href="/index.php" style="text-decoration: none; color: inherit; display: block; transition: opacity 0.2s;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">
+            <h2>AutoRent</h2>
+        </a>
         <span>ADMINISTRADOR</span>
     </div>
 
