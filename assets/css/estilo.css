@@ -362,3 +362,41 @@ body { background-color: #f8fafc; color: #1e293b; }
     outline: none;
     border-color: #1e3a8a;
 }
+
+/* Mejoras en el detalle */
+.foto-principal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff; /* Fondo blanco para el PNG */
+    border: 1px solid #e2e8f0; /* Un borde sutil */
+}
+
+/* Estilos de las pestañas del detalle */
+.tabs-header {
+    display: flex;
+    gap: 30px;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    cursor: pointer;
+    padding: 10px 0;
+    color: #64748b;
+    font-weight: 500;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent; /* Reserva el espacio para que no salte */
+}
+
+.tab-btn:hover {
+    color: #1e3a8a;
+}
+
+/* ¡Esta es la clase que resalta la pestaña activa! */
+.tab-btn.active {
+    color: #1e3a8a !important;
+    font-weight: bold !important;
+    border-bottom: 2px solid #1e3a8a !important;
+}

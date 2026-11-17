@@ -27,20 +27,15 @@ if (!$auto) {
 ?>
 
 <div class="detalle-container">
-    <!-- Columna Izquierda: Galería de Fotos -->
+        <!-- Columna Izquierda: Galería de Fotos -->
     <div class="detalle-galeria">
         <div class="foto-principal">
             <?php if(!empty($auto['imagen']) && file_exists('assets/img/' . $auto['imagen'])): ?>
-                <img src="assets/img/<?php echo $auto['imagen']; ?>" alt="<?php echo $auto['marca']; ?>">
+                <!-- Usamos object-fit contain para que la imagen no se corte -->
+                <img src="assets/img/<?php echo $auto['imagen']; ?>" alt="<?php echo $auto['marca']; ?>" style="object-fit: contain; mix-blend-mode: multiply; padding: 20px;">
             <?php else: ?>
                 <div class="placeholder-img" style="font-size: 48px;">X</div>
             <?php endif; ?>
-        </div>
-        <div class="miniaturas">
-            <!-- Simulamos 3 miniaturas con placeholders -->
-            <div class="miniatura placeholder-img">X</div>
-            <div class="miniatura placeholder-img">X</div>
-            <div class="miniatura placeholder-img">X</div>
         </div>
     </div>
 
@@ -92,13 +87,38 @@ if (!$auto) {
 
 <!-- Pestañas de Información Adicional -->
 <div class="detalle-tabs">
-    <div class="tabs-header">
-        <span class="tab-active">Descripción</span>
-        <span>Características</span>
-        <span>Políticas de Renta</span>
+        <div class="tabs-header">
+        <span class="tab-btn active" onclick="abrirTab('descripcion', this)">Descripción</span>
+        <span class="tab-btn" onclick="abrirTab('caracteristicas', this)">Características</span>
+        <span class="tab-btn" onclick="abrirTab('politicas', this)">Políticas de Renta</span>
     </div>
-    <div class="tab-content">
-        <p><?php echo htmlspecialchars($auto['descripcion']); ?></p>
+    
+    <!-- Contenido: Descripción -->
+    <div id="descripcion" class="tab-content" style="display: block;">
+        <p style="line-height: 1.6; color: #475569;"><?php echo htmlspecialchars($auto['descripcion']); ?></p>
+    </div>
+
+    <!-- Contenido: Características -->
+    <div id="caracteristicas" class="tab-content" style="display: none;">
+        <ul style="line-height: 1.8; color: #475569; padding-left: 20px;">
+            <li><strong>Marca:</strong> <?php echo htmlspecialchars($auto['marca']); ?></li>
+            <li><strong>Modelo:</strong> <?php echo htmlspecialchars($auto['modelo']); ?></li>
+            <li><strong>Año:</strong> <?php echo htmlspecialchars($auto['año']); ?></li>
+            <li><strong>Transmisión:</strong> <?php echo ucfirst($auto['transmision']); ?></li>
+            <li><strong>Capacidad:</strong> <?php echo $auto['pasajeros']; ?> pasajeros</li>
+            <li><strong>Equipamiento:</strong> Aire acondicionado, Bluetooth, Cámara de reversa, Seguros incluidos, Rines de aluminio.</li>
+        </ul>
+    </div>
+
+    <!-- Contenido: Políticas -->
+    <div id="politicas" class="tab-content" style="display: none;">
+        <ul style="line-height: 1.8; color: #475569; padding-left: 20px;">
+            <li>El conductor debe tener al menos 18 años y licencia de conducir vigente.</li>
+            <li>El vehículo se entrega con el tanque lleno y debe devolverse de la misma manera.</li>
+            <li>Seguro de responsabilidad civil incluido en la tarifa base.</li>
+            <li>Cargo por retraso en la entrega: $200.00 MXN por hora adicional.</li>
+            <li>No se permite fumar ni transportar mascotas dentro del vehículo.</li>
+        </ul>
     </div>
 </div>
 
@@ -202,6 +222,24 @@ if (!$auto) {
     
     // Ejecutar una vez al cargar por si acaso
     calcularPrecio();
+</script>
+
+<script>
+    function abrirTab(idTab, element) {
+        // 1. Ocultar todos los contenidos
+        const contenidos = document.querySelectorAll('.tab-content');
+        contenidos.forEach(contenido => contenido.style.display = 'none');
+        
+        // 2. Quitar la clase 'active' de todos los botones
+        const botones = document.querySelectorAll('.tab-btn');
+        botones.forEach(boton => boton.classList.remove('active'));
+        
+        // 3. Mostrar el contenido seleccionado
+        document.getElementById(idTab).style.display = 'block';
+        
+        // 4. Agregar la clase 'active' SOLO al botón que se hizo clic
+        element.classList.add('active');
+    }
 </script>
 
 <?php require 'includes/footer.php'; ?>
