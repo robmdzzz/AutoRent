@@ -2,23 +2,70 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
 body { background-color: #f8fafc; color: #1e293b; }
 
-/* Navbar */
+/* --- NAVBAR CENTRADO --- */
 .navbar {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 15px 40px; background-color: #ffffff;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 0 40px; 
+    height: 70px;
+    background-color: #ffffff;
     border-bottom: 1px solid #e2e8f0;
 }
-.logo a { font-size: 24px; font-weight: bold; color: #1e293b; text-decoration: none; }
-.nav-links { display: flex; gap: 30px; }
-.nav-links a { text-decoration: none; color: #64748b; font-weight: 500; }
-.nav-links a:hover { color: #1e3a8a; }
-.nav-auth { display: flex; gap: 15px; align-items: center; }
 
-/* Botones */
-.btn-primary { background-color: #1e3a8a; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-size: 14px; }
+/* Hacemos que el logo y los botones ocupen el mismo espacio (1 fracción) */
+.logo { flex: 1; display: flex; justify-content: flex-start; }
+.nav-auth { flex: 1; display: flex; justify-content: flex-end; gap: 15px; align-items: center; }
+
+/* El menú del centro se ajusta a su contenido y se centra */
+.nav-links { 
+    display: flex; 
+    justify-content: center;
+    gap: 30px; 
+}
+
+/* Estilos de los enlaces */
+.logo a { font-size: 24px; font-weight: bold; color: #1e293b; text-decoration: none; }
+.nav-links a { 
+    text-decoration: none; 
+    color: #64748b; 
+    font-weight: 500; 
+    font-size: 15px;
+    transition: color 0.2s;
+}
+.nav-links a:hover { color: #1e3a8a; }
+
+/* --- BOTONES --- */
+.btn-primary { 
+    background-color: #1e3a8a; 
+    color: white; 
+    padding: 8px 16px; 
+    border-radius: 4px; 
+    text-decoration: none; 
+    font-size: 14px; 
+    white-space: nowrap; /* Evita que el texto se rompa */
+}
 .btn-primary:hover { background-color: #1e40af; }
-.btn-outline { border: 1px solid #cbd5e1; color: #1e293b; padding: 8px 16px; border-radius: 4px; text-decoration: none; font-size: 14px; }
+
+.btn-outline { 
+    border: 1px solid #cbd5e1; 
+    color: #1e293b; 
+    padding: 8px 16px; 
+    border-radius: 4px; 
+    text-decoration: none; 
+    font-size: 14px; 
+    background: white; 
+    white-space: nowrap; /* Evita que el texto se rompa */
+}
 .btn-outline:hover { background-color: #f1f5f9; }
+
+/* Texto de bienvenida al usuario */
+.nav-auth span { 
+    font-size: 14px; 
+    color: #475569; 
+    margin-right: 5px; 
+    white-space: nowrap;
+}
 
 /* Footer */
 .footer { background-color: #ffffff; padding: 40px; border-top: 1px solid #e2e8f0; margin-top: 50px; }
